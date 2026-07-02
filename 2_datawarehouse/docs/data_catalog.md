@@ -80,7 +80,7 @@ The Gold Layer is the business-level data representation, structured to support 
 | student_key | BIGINT | Surrogate key linking to the student dimension. |
 | subject_key | BIGINT | Surrogate key linking to the subject dimension. |
 | exam_score | DECIMAL(6,2) | Student's score achieved in the examination. |
-| homework_completion_percentage | VARCHAR(10) | Percentage of homework completed by the student. |
+| homework_completion_percentage | INT | Percentage of homework completed by the student. |
 | teacher_comments | VARCHAR(300) | Teacher's remarks or feedback regarding the student's performance. |
 
 ---
