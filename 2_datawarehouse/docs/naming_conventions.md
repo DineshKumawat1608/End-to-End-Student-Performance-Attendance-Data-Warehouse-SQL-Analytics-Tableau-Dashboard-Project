@@ -1,165 +1,120 @@
-# Naming Conventions
+# **Naming Conventions**
 
-This document outlines the naming conventions used for schemas, tables, views, columns, stored procedures, and other database objects in the data warehouse.
+This document outlines the naming conventions used for schemas, tables, views, columns, and other objects in the data warehouse.
 
-## Table of Contents
+## **Table of Contents**
 
 1. [General Principles](#general-principles)
-2. [Object Naming Conventions](#object-naming-conventions)
-   - [Bronze Tables](#bronze-tables)
-   - [Silver Tables](#silver-tables)
-   - [Gold Views](#gold-views)
+2. [Table Naming Conventions](#table-naming-conventions)
+   - [Bronze Rules](#bronze-rules)
+   - [Silver Rules](#silver-rules)
+   - [Gold Rules](#gold-rules)
 3. [Column Naming Conventions](#column-naming-conventions)
    - [Surrogate Keys](#surrogate-keys)
-   - [Business Keys](#business-keys)
    - [Technical Columns](#technical-columns)
 4. [Stored Procedure Naming Conventions](#stored-procedure-naming-conventions)
 
 ---
 
-## General Principles
+## **General Principles**
 
-- Use **snake_case** with lowercase letters and underscores (`_`) to separate words.
-- Use English for all database object names.
-- Choose descriptive and business-friendly names.
-- Avoid using SQL reserved keywords as object names.
-- Apply consistent naming conventions across all Medallion Architecture layers.
+- **Naming Convention:** Use snake_case with lowercase letters and underscores (`_`) to separate words.
+- **Language:** Use English for all object names.
+- **Avoid Reserved Words:** Do not use SQL reserved words as object names.
 
 ---
 
-## Object Naming Conventions
+## **Table Naming Conventions**
 
-### Bronze Tables
+### **Bronze Rules**
 
-Bronze tables store raw data exactly as received from the source files without any transformations.
+- Bronze tables store raw data exactly as received from the source files.
+- Table names must match the original source entity names without renaming.
 
-**Naming Pattern**
-
-```text
-<entity>
-```
-
-**Examples**
-
-- `attendance`
-- `homework`
-- `performance`
-- `students`
-- `teacher_parent_communication`
+- **`<entity>`**
+  - `<entity>`: Original dataset entity name.
+  - Examples:
+    - `attendance`
+    - `homework`
+    - `performance`
+    - `students`
+    - `teacher_parent_communication`
 
 ---
 
-### Silver Tables
+### **Silver Rules**
 
-Silver tables store cleansed, standardized, and validated data while preserving the same business entities as the Bronze layer.
+- Silver tables retain the same entity names as the Bronze layer after data cleansing and standardization.
 
-**Naming Pattern**
-
-```text
-<entity>
-```
-
-**Examples**
-
-- `attendance`
-- `homework`
-- `performance`
-- `students`
-- `teacher_parent_communication`
+- **`<entity>`**
+  - `<entity>`: Original dataset entity name.
+  - Examples:
+    - `attendance`
+    - `homework`
+    - `performance`
+    - `students`
+    - `teacher_parent_communication`
 
 ---
 
-### Gold Views
+### **Gold Rules**
 
-Gold objects expose business-ready analytical datasets following the Star Schema.
+- Gold objects use meaningful business-aligned names following the Star Schema.
 
-Dimension views use the following pattern:
+- **`<category>_<entity>`**
+  - `<category>`: Describes the role of the object, such as `dim` (dimension) or `fact` (fact table).
+  - `<entity>`: Business entity represented by the object.
+  - Examples:
+    - `dim_students`
+    - `dim_subjects`
+    - `fact_attendance`
+    - `fact_homework`
+    - `fact_performance`
+    - `fact_teacher_parent_communication`
 
-```text
-dim_<entity>
-```
+#### **Glossary of Category Patterns**
 
-**Examples**
-
-- `dim_students`
-- `dim_subjects`
-
-Fact views use the following pattern:
-
-```text
-fact_<entity>
-```
-
-**Examples**
-
-- `fact_attendance`
-- `fact_homework`
-- `fact_performance`
-- `fact_teacher_parent_communication`
-
-#### Object Prefix Glossary
-
-| Prefix | Description | Example |
-|---------|-------------|---------|
-| `dim_` | Dimension view | `dim_students` |
-| `fact_` | Fact view | `fact_attendance` |
+| Pattern | Meaning | Example(s) |
+|----------|---------|------------|
+| `dim_` | Dimension view | `dim_students`, `dim_subjects` |
+| `fact_` | Fact view | `fact_attendance`, `fact_homework`, `fact_performance` |
 
 ---
 
-## Column Naming Conventions
+## **Column Naming Conventions**
 
-### Surrogate Keys
+### **Surrogate Keys**
 
-Dimension tables use surrogate keys ending with the suffix `_key`.
+- All surrogate keys in dimension views must use the suffix `_key`.
 
-**Naming Pattern**
-
-```text
-<entity>_key
-```
-
-**Examples**
-
-- `student_key`
-- `subject_key`
+- **`<entity>_key`**
+  - `<entity>`: Name of the business entity.
+  - `_key`: Indicates a surrogate key.
+  - Examples:
+    - `student_key`
+    - `subject_key`
 
 ---
 
-### Business Keys
+### **Technical Columns**
 
-Business keys preserve the original identifiers from the source dataset.
+- All technical columns must start with the prefix `dwh_`, followed by a descriptive name indicating the column's purpose.
 
-**Examples**
-
-- `Student_ID`
-
----
-
-### Technical Columns
-
-Technical metadata columns begin with the prefix `dwh_`.
-
-**Naming Pattern**
-
-```text
-dwh_<column_name>
-```
-
-**Example**
-
-- `dwh_create_date`
+- **`dwh_<column_name>`**
+  - `dwh`: Prefix exclusively for system-generated metadata.
+  - `<column_name>`: Descriptive name indicating the column's purpose.
+  - Example:
+    - `dwh_create_date`
 
 ---
 
-## Stored Procedure Naming Conventions
+## **Stored Procedure Naming Conventions**
 
-Stored procedures responsible for loading each Medallion layer follow the naming pattern:
+- All stored procedures used for loading data must follow the naming pattern:
 
-```text
-load_<layer>
-```
+- **`load_<layer>`**
 
-**Examples**
-
-- `load_bronze`
-- `load_silver`
+  - `<layer>`: Represents the Medallion layer being loaded.
+  - Examples:
+    - `load_bronze`
+    - `load_silver`
