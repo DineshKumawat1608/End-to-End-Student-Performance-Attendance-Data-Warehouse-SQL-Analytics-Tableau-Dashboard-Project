@@ -26,13 +26,21 @@ GO
 
 CREATE VIEW gold.dim_students AS
 SELECT
-    ROW_NUMBER() OVER (ORDER BY Student_ID) AS student_key, -- Surrogate Key
-    Student_ID                              AS student_id,
-    Full_Name                               AS student_name,
-    Date_of_Birth                           AS date_of_birth,
-    Grade_Level                             AS grade,
-    Emergency_Contact                       AS contact_number
-FROM silver.students;
+    ROW_NUMBER() OVER (ORDER BY s.Student_ID) AS student_key, -- Surrogate Key
+    s.Student_ID                              AS student_id,
+    s.Full_Name                               AS student_name,
+    s.Date_of_Birth                           AS date_of_birth,
+    s.Grade_Level                             AS grade,
+    s.Emergency_Contact                       AS contact_number,
+    DENSE_RANK() OVER (ORDER BY AVG(P.Exam_Score) DESC) AS student_rank
+FROM silver.students s
+LEFT JOIN silver.performance P ON s.Student_ID = p.Student_ID
+group by 
+    s.Student_ID,
+    s.Full_Name,
+    s.Date_of_Birth,
+    s.Grade_Level,
+    s.Emergency_Contact;
 GO
 
 -- =============================================================================
