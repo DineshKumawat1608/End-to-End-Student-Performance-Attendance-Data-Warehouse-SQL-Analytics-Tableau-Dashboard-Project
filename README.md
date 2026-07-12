@@ -254,18 +254,5 @@ I'm a Data Analyst passionate about transforming raw data into meaningful insigh
 
 Let's connect!
 
----
-
-# 🌟 About Me
-
-Hi there! I'm **Dinesh Kumawat**.
-
-I'm a Data Analyst passionate about transforming raw data into meaningful insights using **SQL, Python, Excel, Power BI, Tableau, and Data Engineering concepts**. I enjoy building end-to-end analytics solutions—from designing data warehouses to creating interactive dashboards that support better decision-making.
-
-Let's connect!
-
-**LinkedIn:**  
-https://www.linkedin.com/in/dineshkumawat1608/
-
 **LinkedIn:**  
 https://www.linkedin.com/in/dineshkumawat1608/
