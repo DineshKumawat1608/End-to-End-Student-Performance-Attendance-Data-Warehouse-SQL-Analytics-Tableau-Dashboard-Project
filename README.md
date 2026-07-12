@@ -187,8 +187,7 @@ SQL_P1_Student_Performance_and_Attendance
 │
 ├── 3. dashboard
 │   ├── Student_Performance_Dashboard.twb
-│   ├── dashboard.pdf
-│   └── dashboard.png
+│   └── dashboard.images
 │
 ├── LICENSE
 └── README.md
