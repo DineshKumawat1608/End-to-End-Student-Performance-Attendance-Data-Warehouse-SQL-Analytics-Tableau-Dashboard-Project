@@ -130,12 +130,9 @@ The solution consists of **three interactive dashboards** designed for different
 ### 📌 Executive Overview
 Provides a high-level summary of academic performance through KPI cards and interactive visualizations, including:
 
-- Student and subject overview
-- Average exam score, attendance, and homework completion
-- Attendance and homework status distribution
-- Subject-wise and grade-wise performance
-- Student demographics
-- Monthly academic trends
+<img width="1250" height="800" alt="1  Executive Overview" src="https://github.com/user-attachments/assets/3222db2d-f542-4b8d-9731-c58011a075c3" />
+
+
 
 ### 📌 Student Analysis
 Supports deeper academic analysis through:
